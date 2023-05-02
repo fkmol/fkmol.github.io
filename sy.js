@@ -5,8 +5,9 @@ $(function(){
 { 
     
     img_w=iod[i].naturalWidth+32+'px';
+	console.log(img_w);
     // mtk[i].style.;
-    $('div.modal-dialog').eq(i).css('min-width',img_w)
+    $('div.modal-dialog').eq(i).css('min-width',img_w);
 }
 
    

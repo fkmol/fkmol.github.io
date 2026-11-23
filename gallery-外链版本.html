@@ -268,23 +268,34 @@ button.b:hover{filter:brightness(.93);box-shadow:0 0 0 1px currentColor inset}
   .meta h3{font-size:12.5px}
   #top{right:12px;bottom:calc(18px + env(safe-area-inset-bottom))}
 
-  /* 大图灯箱：铺满，避免小屏溢出 */
-  #modal{padding:0;align-items:stretch;height:100%;height:100dvh}
-  .box{
-    flex-direction:column;max-height:100%;height:100%;border-radius:0;
+  /* 大图灯箱：四周留边，点边缘的遮罩即可退出；面板按内容收缩，内容少时不会拖一片空白 */
+  #modal{
+    height:100%;height:100dvh;
+    padding:16px;
+    padding-top:max(16px, env(safe-area-inset-top));
+    padding-bottom:max(16px, env(safe-area-inset-bottom));
   }
-  .box .pic{flex:0 0 auto;border-radius:0;max-height:48vh;min-height:0}
+  .box{
+    flex-direction:column;max-height:100%;border-radius:16px;
+  }
+  .box .pic{flex:0 0 auto;border-radius:16px 16px 0 0;max-height:48vh;min-height:0}
   .box .pic img{max-height:48vh}
   .info{padding:12px 14px}
   .info .desc{max-height:26vh}
   /* 手机上改用左右滑动翻页，箭头会浮在信息区挡住标签 */
   .nav{display:none}
 
-  /* 筛选弹窗：全屏，三段式（头 / 可滚动主体 / 固定底栏） */
-  #fmodal{padding:0;align-items:stretch;height:100%;height:100dvh}
+  /* 筛选弹窗：四周留边，点边缘的遮罩就能退出；仍是三段式（头 / 可滚动主体 / 固定底栏） */
+  #fmodal{
+    align-items:stretch;height:100%;height:100dvh;
+    padding:16px;
+    /* 有刘海/横条时让出安全区，没有则保持 16px，不叠加 */
+    padding-top:max(16px, env(safe-area-inset-top));
+    padding-bottom:max(16px, env(safe-area-inset-bottom));
+  }
   .fpanel{
-    height:100%;max-height:100%;border-radius:0;box-shadow:none;
-    padding-top:env(safe-area-inset-top);
+    height:100%;max-height:100%;border-radius:16px;
+    box-shadow:0 18px 50px rgba(0,0,0,.34);
   }
   .fhead{padding:10px 12px;gap:8px;flex:0 0 auto}
   .fhead h2{display:none}
@@ -307,10 +318,9 @@ button.b:hover{filter:brightness(.93);box-shadow:0 0 0 1px currentColor inset}
   .fchips{gap:7px;-webkit-overflow-scrolling:touch;padding-bottom:4px}
   .chip{padding:6px 11px;font-size:13px;min-height:33px}
 
-  /* 底栏：已选条件单独一行，按钮靠右，避开 iPhone 底部横条 */
+  /* 底栏：已选条件单独一行、按钮靠右；安全区已由 #fmodal 的 padding 让出 */
   .ffoot{
     flex:0 0 auto;flex-wrap:wrap;gap:8px;padding:8px 12px;
-    padding-bottom:calc(8px + env(safe-area-inset-bottom));
   }
   .fsel{flex:1 1 100%;order:1;max-height:76px}
   .fact{flex:1 1 100%;order:2;justify-content:flex-end}
